@@ -2,10 +2,27 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use HasFactory;
+    use Sluggable;
+
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
+    }
+
+    public function category(){
+        return $this->belongsToMany(Tag::class);
+    }
+
+    public function sluggable():array{
+        return [
+            "slug"=> [
+                "source"=> "title",
+            ]
+        ];
+    }
 }
