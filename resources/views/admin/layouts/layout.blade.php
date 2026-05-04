@@ -168,13 +168,19 @@
             </ul>
           </li>
 
-          <!-- НОВОЕ: пункт меню "Категории" с активной подсветкой -->
           <li class="nav-item">
             <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-folder"></i>
               <p>Категории</p>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="{{ route('tags.index') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Теги</p>
+            </a>
+        </li>
         </ul>
       </nav>
     </div>
