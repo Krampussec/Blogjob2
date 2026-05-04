@@ -48,7 +48,6 @@
                             <th style="width: 50px">ID</th>
                             <th>Название</th>
                             <th>Slug</th>
-                            <th>Описание</th>
                             <th style="width: 150px">Действия</th>
                         </tr>
                     </thead>
@@ -56,9 +55,8 @@
                         @forelse($categories as $category)
                             <tr>
                                 <td>{{ $category->id }}</td>
-                                <td>{{ $category->name }}</td>
+                                <td>{{ $category->title }}</td>
                                 <td>{{ $category->slug }}</td>
-                                <td>{{ Str::limit($category->description, 80) }}</td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="{{ route('categories.edit', $category) }}" class="btn btn-warning btn-sm" title="Редактировать">
@@ -67,7 +65,7 @@
                                         <form action="{{ route('categories.destroy', $category) }}" method="POST" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Вы уверены, что хотите удалить категорию «{{ $category->name }}»?')" title="Удалить">
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Вы уверены, что хотите удалить категорию «{{ $category->title }}»?')" title="Удалить">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -75,12 +73,11 @@
                                 </td>
                             </tr>
                         @empty
-                            <tr><td colspan="5" class="text-center">Категории отсутствуют</td></tr>
+                            <tr><td colspan="4" class="text-center">Категории отсутствуют</td></tr>
                         @endforelse
                     </tbody>
                 </table>
 
-                {{-- Пагинация --}}
                 <div class="mt-3 d-flex justify-content-end">
                     {{ $categories->links() }}
                 </div>

@@ -22,17 +22,15 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|unique:categories,slug',
+            'title' => 'required|string|max:255|unique:categories',
             'description' => 'nullable|string',
         ]);
 
         Category::create($validated);
 
         return redirect()->route('categories.index')
-            ->with('success', 'Категория создана.');
+            ->with('success', 'Категория успешно создана. Hel ye');
     }
-
     public function edit(Category $category)
     {
         return view('admin.categories.edit', compact('category'));
@@ -41,7 +39,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'slug' => 'required|string|unique:categories,slug,' . $category->id,
             'description' => 'nullable|string',
         ]);
@@ -58,4 +56,6 @@ class CategoryController extends Controller
         return redirect()->route('categories.index')
             ->with('success', 'Категория удалена.');
     }
+
+
 }

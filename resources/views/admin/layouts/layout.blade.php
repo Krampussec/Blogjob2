@@ -1,3 +1,5 @@
+@include('partials.errors')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
