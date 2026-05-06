@@ -19,7 +19,7 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="slug">Slug (ЧПУ)</label>
+                <label for="slug">Слуг</label>
                 <input type="text" class="form-control @error('slug') is-invalid @enderror"
                        id="slug" name="slug" value="{{ old('slug') }}" required>
                 <small class="form-text text-muted">Только латиница, цифры и дефисы. Например: <strong>novyj-teg</strong></small>

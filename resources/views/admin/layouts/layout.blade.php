@@ -5,21 +5,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- НОВОЕ: динамический заголовок -->
   <title>@yield('title', 'AdminLTE 3 | Blank Page')</title>
-
-  <!-- НОВОЕ: CSRF-токен для Laravel -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
-
-  <!-- Theme style -->
+  <!-- AdminLTE -->
   <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
+  <!-- Select2 CSS (правильно) -->
+  <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 
-  <!-- НОВОЕ: стек для дополнительных CSS на страницах -->
-  @stack('css')
+  @stack('styles')
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -30,7 +27,6 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <!-- ИСПРАВЛЕНО: ссылка на главную через Laravel -->
         <a href="{{ url('/') }}" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
@@ -181,6 +177,13 @@
                 <p>Теги</p>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a href="{{ route('posts.index') }}" class="nav-link">
+                <i class="nav-icon far fa-newspaper"></i>
+                <p>Посты</p>
+            </a>
+        </li>
         </ul>
       </nav>
     </div>
@@ -199,16 +202,27 @@
   <aside class="control-sidebar control-sidebar-dark"></aside>
 </div>
 
-<!-- jQuery -->
-<script src="{{ asset('assets/js/plugins/jquery/jquery.min.js') }}"></script>
+<!-- jQuery (уже есть) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- Select2 JS (правильный путь) -->
+<script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/dist/js/adminlte.min.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
 <script src="{{ asset('assets/dist/js/demo.js') }}"></script>
 
-<!-- НОВОЕ: стек для дополнительных скриптов на страницах -->
-@stack('js')
+<script>
+    $(function () {
+        $('.select2').select2({
+            theme: 'bootstrap4',
+            width: '100%',
+            placeholder: 'Выберите теги',
+            allowClear: true
+        });
+    });
+</script>
+
+@stack('scripts')
 </body>
 </html>
