@@ -56,9 +56,18 @@ class PostController extends Controller
 
             $validated['slug'] = Str::slug($request->title);
 
+            $slug = Str::slug($request->title);
+            $originalSlug = $slug;
+            $count = 1;
+            while (Post::where('slug', $slug)->exists()) {
+                $slug = $originalSlug . '-' . $count++;
+            }
+            $validated['slug'] = $slug;
+
             if ($request->hasFile('thumbnail')) {
-                $path = $request->file('thumbnail')->store('thumbnails', 'public');
-                $validated['thumbnail'] = $path;
+                $filename = time() . '_' . $request->file('thumbnail')->getClientOriginalName();
+                $request->file('thumbnail')->move(public_path('uploads/thumbnails'), $filename);
+                $validated['thumbnail'] = $filename;
             }
 
             $post = Post::create($validated);
@@ -113,8 +122,9 @@ class PostController extends Controller
 
 
         if ($request->hasFile('thumbnail')) {
-            $path = $request->file('thumbnail')->store('thumbnails', 'public');
-            $validated['thumbnail'] = $path;
+                $filename = time() . '_' . $request->file('thumbnail')->getClientOriginalName();
+                $request->file('thumbnail')->move(public_path('uploads/thumbnails'), $filename);
+                $validated['thumbnail'] = $filename;
         }
 
         $post->update($validated);

@@ -51,13 +51,7 @@
                                 <td>{{ $post->id }}</td>
                                 <td>{{ $post->title }}</td>
                                 <td>
-                                    @if($post->tags->count())
-                                        @foreach($post->tags as $tag)
-                                            <span class="badge badge-info">{{ $tag->name }}</span>
-                                        @endforeach
-                                    @else
-                                        <span class="text-muted">—</span>
-                                    @endif
+                                    {{ $post->tags->implode('title', ', ') }}
                                 </td>
                                 <td>
                                     @if($post->is_published)

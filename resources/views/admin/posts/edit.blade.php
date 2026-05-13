@@ -41,11 +41,9 @@
                 <select name="tags[]" class="form-control select2" multiple="multiple" data-placeholder="Выберите теги">
                     @foreach($tags as $tag)
                         @php
-                            // Безопасное получение id и title (работает и с объектом, и со строкой)
                             $tagId = is_object($tag) ? $tag->id : $tag;
                             $tagTitle = is_object($tag) ? ($tag->title ?? $tag) : $tag;
 
-                            // Получаем массив id выбранных тегов (из old или из связанных тегов поста)
                             $selectedIds = old('tags', $post->tags->pluck('id')->toArray());
                             $selected = in_array($tagId, $selectedIds);
                         @endphp
@@ -67,7 +65,7 @@
                 <label>Миниатюра</label>
                 @if($post->thumbnail)
                     <div class="mb-2">
-                        <img src="{{ Storage::url($post->thumbnail) }}" height="80" alt="Thumbnail">
+                        <img src="{{ asset('uploads/thumbnails/' . $post->thumbnail) }}" height="320" alt="Thumbnail">
                     </div>
                 @endif
                 <input type="file" name="thumbnail" class="form-control-file @error('thumbnail') is-invalid @enderror">

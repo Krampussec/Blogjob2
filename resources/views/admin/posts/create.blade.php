@@ -17,13 +17,6 @@
                 @error('title')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
 
-            <!-- Slug -->
-            <div class="form-group">
-                <label>Slug</label>
-                <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror" value="{{ old('slug') }}" required>
-                @error('slug')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-
             <!-- Категория -->
             <div class="form-group">
                 <label>Категория</label>
@@ -51,10 +44,18 @@
                 @error('tags')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
 
+            <!-- Краткое описание -->
             <div class="form-group">
                 <label>Краткое описание</label>
-                <textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="3">{{ old('description', $post->description ?? '') }}</textarea>
+                <textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="3">{{ old('description') }}</textarea>
                 @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            </div>
+
+            <!-- Полный текст (content) – обязательно -->
+            <div class="form-group">
+                <label>Содержание поста</label>
+                <textarea name="content" class="form-control @error('content') is-invalid @enderror" rows="10" required>{{ old('content') }}</textarea>
+                @error('content')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
 
             <!-- Миниатюра -->
