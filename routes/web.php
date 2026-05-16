@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\PublicPostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,4 +44,4 @@ Route::get('/blog', [PostController::class, 'publicIndex'])->name('blog');
 
 Route::get('/post/{slug}', [PublicPostController::class, 'show'])->name('posts.show');
 
-Route::get('/tag/{slug}', [PublicTagController::class, 'show'])->name('tag.show');
+Route::get('/search', [SearchController::class, 'search'])->name('search');
