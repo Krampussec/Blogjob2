@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\PublicPostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,3 +38,9 @@ Route::group(['prefix'=> 'register',], function () {
 Route::get('login', [UserController::class, 'loginForm'])->name('login.create');
 Route::post('/login', [UserController::class, 'login'])->name('login');
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
+
+Route::get('/blog', [PostController::class, 'publicIndex'])->name('blog');
+
+Route::get('/post/{slug}', [PublicPostController::class, 'show'])->name('posts.show');
+
+Route::get('/tag/{slug}', [PublicTagController::class, 'show'])->name('tag.show');

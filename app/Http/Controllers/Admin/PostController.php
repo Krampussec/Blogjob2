@@ -133,6 +133,19 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', 'Пост обновлён.');
     }
 
+    public function publicIndex()
+        {
+            $posts = Post::with('category', 'tags')
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(6);
+
+            $categories = Category::all();
+            $recentPosts = Post::latest()->take(5)->get();
+            $tags = Tag::all();
+
+            return view('posts.index', compact('posts', 'categories', 'recentPosts', 'tags'));
+        }
+
     /**
      * Remove the specified resource from storage.
      *

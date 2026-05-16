@@ -12,7 +12,7 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'slug', 'content', 'category_id', 'thumbnail', 'description'
+        'title', 'slug', 'content', 'category_id', 'thumbnail', 'description', 'views'
     ];
 
     public function category()
@@ -26,11 +26,21 @@ class Post extends Model
     }
 
     public function getImage()
-{
-    return $this->thumbnail
-        ? asset('uploads/thumbnails/' . $this->thumbnail)
-        : asset('no-image.png');
-}
+    {
+        return $this->thumbnail
+            ? asset('uploads/thumbnails/' . $this->thumbnail)
+            : asset('no-image.png');
+    }
+
+    public function getFormattedDate()
+    {
+        return $this->created_at->format('d M Y');
+    }
+
+    public function incrementViews()
+    {
+        $this->increment('views');
+    }
 
     public static function uploadImage(Request $request, $image = null){
         if($request->hasFile('thumbnail')){
