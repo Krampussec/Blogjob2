@@ -1,27 +1,26 @@
-<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
-    <div class="container">
-        <a class="navbar-brand" href="{{ route('blog') }}">Markedia</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarMain">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="{{ route('blog') }}">Главная</a></li>
-                @auth
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/admin') }}">
-                            <i class="fas fa-cog"></i> Админка
-                        </a>
-                    </li>
-                @endauth
-
-                <li class="nav-item ms-2">
-                    <form action="{{ route('search') }}" method="GET" class="d-flex">
-                        <input class="form-control form-control-sm me-1" type="search" name="s" placeholder="Поиск..." value="{{ request('s') }}" aria-label="Search">
-                        <button class="btn btn-outline-primary btn-sm" type="submit"><i class="fas fa-search"></i></button>
-                    </form>
-                </li>
-            </ul>
-        </div>
+<header class="market-header header">
+    <div class="container-fluid">
+        <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="{{ route('blog') }}">
+                <img src="{{ asset('assets/marketing/images/version/market-logo.png') }}" alt="Markedia">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="{{ route('blog') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('blog') }}">Blog</a></li>
+                    @auth
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/admin') }}">Admin</a></li>
+                    @endauth
+                </ul>
+                <form class="form-inline" action="{{ route('search') }}" method="GET">
+                    <input class="form-control mr-sm-2" type="text" name="s" placeholder="How may I help?" value="{{ request('s') }}">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
     </div>
-</nav>
+</header>
