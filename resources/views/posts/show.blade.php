@@ -33,6 +33,24 @@
                 </div>
                 @endif
 
+                                    <!-- Категория -->
+                        @if($post->category)
+                            <small>
+                                <a href="#" class="text-dark">
+                                    {{ $post->category->title }}
+                                </a>
+                            </small>
+                        @endif
+
+                        @if($post->tags->count())
+                            <div class="tags">
+                                @foreach($post->tags as $tag)
+                                    <a href="#" class="text-dark">#{{ $tag->title }}</a>
+                                @endforeach
+                            </div>
+                        @endif
+                </div><!-- end meta -->
+
                 <div class="blog-meta big-meta text-center">
                     <h4>{{ $post->title }}</h4>
                     <p>{!! nl2br(e($post->content)) !!}</p>
@@ -51,11 +69,7 @@
                         <small><i class="fa fa-eye"></i> {{ $post->views }}</small>
                     </div>
 
-                    @if($post->tags->count())
-                        <div class="tag-cloud">
-                        </div>
-                    @endif
-                </div><!-- end meta -->
+
             </div><!-- end blog-box -->
         </div>
     </div>

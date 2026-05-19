@@ -50,9 +50,25 @@
             <div class="link-widget">
                 <ul>
                     @foreach($popularCategories ?? [] as $cat)
-                        <li><a href="{{ route('category.show', $cat->slug) }}">{{ $cat->title }} <span>({{ $cat->posts_count }})</span></a></li>
+                        <li><a href="#">{{ $cat->title }} <span>({{ $cat->posts_count }})</span></a></li>
                     @endforeach
                 </ul>
+            </div>
+
+            <!-- Tags Widget -->
+            <div class="widget">
+                <h2 class="widget-title">All Tags</h2>
+                <div class="tag-cloud">
+                    @if(isset($allTags) && $allTags->count())
+                        @foreach($allTags as $tag)
+                            <a href="#" class="badge badge-light" style="background: #f0f0f0; color: #333; margin: 3px; padding: 5px 10px;">
+                                {{ $tag->title }} <span class="small">({{ $tag->posts_count ?? $tag->posts->count() }})</span>
+                            </a>
+                        @endforeach
+                    @else
+                        <p>No tags yet.</p>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

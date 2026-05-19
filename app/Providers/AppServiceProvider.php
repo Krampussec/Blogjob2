@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Tag;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Post;
@@ -24,16 +25,39 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('layouts.sidebar', function ($view) {
-            $popularPosts = Post::orderBy('views', 'desc')
-                                ->take(5)
-                                ->get();
+        $popularCategories = Category::withCount('posts')
+                                     ->orderBy('posts_count', 'desc')
+                                     ->take(7)
+                                     ->get();
 
-            $categoriesWithCount = Category::withCount('posts')
-                                        ->orderBy('posts_count', 'desc')
-                                        ->get();
+        $recentPosts = Post::latest()->take(5)->get();
 
-            $view->with('popularPosts', $popularPosts)
-                ->with('categoriesWithCount', $categoriesWithCount);
+        $view->with([
+            'popularCategories' => $popularCategories,
+            'recentPosts'       => $recentPosts,
+        ]);
+    });
+
+        View::composer('layouts.sidebar', function ($view) {
+            $allTags = Tag::withCount('posts')->orderBy('title')->get();
+            $view->with('allTags', $allTags);
+        });
+
+        View::composer('posts.index', function ($view) {
+            $allTags = Tag::withCount('posts')->orderBy('title')->get();
+            $view->with('allTags', $allTags);
+
+             $popularCategories = Category::withCount('posts')
+                                     ->orderBy('posts_count', 'desc')
+                                     ->take(7)
+                                     ->get();
+
+            $recentPosts = Post::latest()->take(5)->get();
+
+            $view->with([
+                'popularCategories' => $popularCategories,
+                'recentPosts'       => $recentPosts,
+            ]);
         });
     }
 }
